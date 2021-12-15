@@ -8,6 +8,6 @@ import javax.persistence.Id
 data class Driver (
         @Id
         var id: Long? = null,
-        val name: String,
-        val birthDate: LocalDate
+        val name: String = "",
+        val birthDate: LocalDate? = null
         )
