@@ -2,6 +2,7 @@ package com.apicar.interfaces
 
 import com.apicar.domain.Driver
 import com.apicar.domain.DriverRepository
+import com.apicar.domain.PatchDriver
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
@@ -18,7 +19,7 @@ class DriverAPI (val driverRepository: DriverRepository){
 
     @GetMapping("/{id}")
     fun findDriver(@PathVariable id: Long): Driver = driverRepository.findById(id)
-        .orElseThrow{ ResponseStatusException(HttpStatus.NOT_FOUND)}
+            .orElseThrow{ ResponseStatusException(HttpStatus.NOT_FOUND) }
 
     @PostMapping()
     fun createDriver(@RequestBody driver: Driver): Driver = driverRepository.save(driver);
@@ -32,4 +33,15 @@ class DriverAPI (val driverRepository: DriverRepository){
         )
         return driverRepository.save(copyDriver);
     }
+
+    @PatchMapping("/{id}")
+    fun incrementalUpdateDriver(@PathVariable("id") id:Long, @RequestBody driver:PatchDriver) : Driver {
+        val foundDriver = findDriver(id)
+        val copyDriver = foundDriver.copy(
+            birthDate = driver.birthDate ?: foundDriver.birthDate,
+            name = driver.name ?: foundDriver.name
+        )
+        return driverRepository.save(copyDriver)
+    }
+
 }
