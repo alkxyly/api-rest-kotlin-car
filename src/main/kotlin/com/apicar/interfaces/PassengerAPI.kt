@@ -1,7 +1,8 @@
 package com.apicar.interfaces
 
 import com.apicar.domain.Passenger
-import com.apicar.domain.PassengerRepository
+import com.apicar.repository.PassengerRepository
+import com.apicar.domain.PatchPassenger
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
@@ -21,8 +22,7 @@ class PassengerAPI (val passengerRepository: PassengerRepository){
             .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND) }
 
     @PostMapping
-    fun createPassenger(@RequestBody passenger: Passenger) =
-        passengerRepository.save(passenger)
+    fun createPassenger(@RequestBody passenger: Passenger) = passengerRepository.save(passenger)
 
     @PutMapping("/{id}")
     fun fullUpdatePassenger(@PathVariable("id") id: Long,

@@ -1,7 +1,7 @@
 package com.apicar.interfaces
 
 import com.apicar.domain.Driver
-import com.apicar.domain.DriverRepository
+import com.apicar.repository.DriverRepository
 import com.apicar.domain.PatchDriver
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
