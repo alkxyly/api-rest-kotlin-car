@@ -44,4 +44,10 @@ class DriverAPI (val driverRepository: DriverRepository){
         return driverRepository.save(copyDriver)
     }
 
+    @DeleteMapping("/{id}")
+    fun deleteDriver(@PathVariable("id") id: Long) {
+       val driver = driverRepository.findById(id)
+            .orElseThrow{ ResponseStatusException(HttpStatus.NOT_FOUND) }
+        return driverRepository.deleteById(id);
+    }
 }
